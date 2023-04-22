@@ -1,0 +1,27 @@
+﻿@page
+@using System.Data.SqlClient;
+@model RegistrationForm.Pages.Clients.DeleteModel
+@{
+    try
+    {
+        String id = Request.Query["id"];
+
+        string connectionString = "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=C:\\Users\\Abhilash\\OneDrive\\Documents\\mystore.mdf;Integrated Security=True;Connect Timeout=30";
+        using (SqlConnection connection = new SqlConnection(connectionString))
+        {
+            connection.Open();
+
+            String sql = "DELETE FROM CLIENTS WHERE id=@id";
+            using (SqlCommand command = new SqlCommand(sql, connection))
+            {
+                command.Parameters.AddWithValue("@id", id);
+
+                command.ExecuteNonQuery();
+            }
+        }
+    }
+    catch
+    {
+        
+    }
+}
